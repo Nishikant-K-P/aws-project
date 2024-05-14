@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.core import xray_recorder
 
 class NotificationActivities:
   def run(): 
@@ -26,11 +26,11 @@ class NotificationActivities:
     }
     ]
 
-    subsegment = xray_recorder.begin_subsegment('notification_activity.mock_data')
-    dict = {
-      "now" : now.isoformat(),
-      "data-length" : len(results)
-    }
-    subsegment.put_annotation('mock_data_len', len(results))
-    xray_recorder.end_subsegment()
+    # subsegment = xray_recorder.begin_subsegment('notification_activity.mock_data')
+    # dict = {
+    #   "now" : now.isoformat(),
+    #   "data-length" : len(results)
+    # }
+    # subsegment.put_annotation('mock_data_len', len(results))
+    # xray_recorder.end_subsegment()
     return results
