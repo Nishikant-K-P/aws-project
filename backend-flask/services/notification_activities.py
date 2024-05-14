@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta, timezone
+from aws_xray_sdk.core import xray_recorder
+
 class NotificationActivities:
-  def run():
+  def run(): 
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
@@ -23,4 +25,12 @@ class NotificationActivities:
       }],
     }
     ]
+
+    subsegment = xray_recorder.begin_subsegment('notification_activity.mock_data')
+    dict = {
+      "now" : now.isoformat(),
+      "data-length" : len(results)
+    }
+    subsegment.put_annotation('mock_data_len', len(results))
+    xray_recorder.end_subsegment()
     return results
